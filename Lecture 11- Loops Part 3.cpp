@@ -1,30 +1,29 @@
-// WHILE LOOPS
-
 #include <iostream>
 using namespace std;
-int main()
-{
-//	int i;
-//	i=1;   // initialization
-//	while(i<101)  // Condition
-//	{
-//		cout << i <<" ";  // loop
-//		i++;              // Update
-//	}
-	int i;
-	int input;
-	
-	// guess the number 65
-	// the user has 100 chances
-	i=100;
+
+int main() {
+    int i;
+    int input;
     
-    for(i=1; i<101;i++)
-    {
-    	cin >> input;
-    	if(input == 65) // if thde input is exactly 65
-    	{
-    		cout << "Congrats you have guess correct ";
-    		break;
-		}
-	}
+    // Guess the number 65
+    // The user has 100 chances
+    
+    for (i = 1; i <= 100; i++) {
+        cout << "Guess the number (between 1 and 100): ";
+        cin >> input;
+        
+        if (input == 65) {
+            cout << "Congrats! You have guessed correctly." << endl;
+            break;  // Exit the loop if the guess is correct
+        } else {
+            cout << "Incorrect guess. Try again." << endl;
+        }
+    }
+
+    if (i > 100) {
+        cout << "Sorry, you have used all your chances. The correct number was 65." << endl;
+    }
+
+    return 0;
 }
+
