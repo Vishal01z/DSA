@@ -1,23 +1,19 @@
-// Variables, Constants and Data Types 
-
 #include <iostream>
 using namespace std;
+
 int main()
 {
-	// Declare 2 variables and then assign them values of 3,5 and then add them
+	// Declare 2 variables and assign them values of 3 and 5
+	int a, b;
 	
-	int a,b;
+	a = 3;
+	b = 5;
 	
-	a=3;
-	b=5;
+	// Output the sum of the variables
+	cout << a + b << endl;
 	
-	//int c;
-	//c=a+b;
-	
-	//cout << c;
-	cout << a+b;
-	cout << endl;
-	cout << "a+b";
+	// Output the string "a+b"
+	cout << "a+b" << endl;
 	
 	return 0;
 }
