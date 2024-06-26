@@ -1,0 +1,23 @@
+#include <iostream>
+
+using namespace std;
+
+int main() {
+  // Declare variables of different data types
+  int age = 25; // Integer to store age
+  float pi = 3.14159; // Float to store pi (decimal approximation)
+  char initial = 'J'; // Character to store an initial
+  bool isStudent = true; // Boolean to indicate student status
+
+  // Declare a constant using const keyword
+  const double GRAVITY = 9.81; // Constant for gravitational acceleration
+
+  // Print variable values with descriptive labels
+  cout << "Age: " << age << endl;
+  cout << "Pi (approximation): " << pi << endl;
+  cout << "Initial: " << initial << endl;
+  cout << "Is student: " << isStudent << endl;
+  cout << "Gravitational acceleration: " << GRAVITY << endl;
+
+  return 0;
+}
