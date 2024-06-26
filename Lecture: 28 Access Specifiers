@@ -1,0 +1,57 @@
+#include <iostream>
+
+using namespace std;
+
+class Car {
+public:  // Public members are accessible from anywhere
+  string brand;
+  int modelYear;
+
+  void printCarInfo() {  // Public member function
+    cout << "Brand: " << brand << endl;
+    cout << "Model Year: " << modelYear << endl;
+  }
+
+private:  // Private members are accessible only within the class
+    int mileage;
+
+    void updateMileage(int miles) {  // Private member function
+      mileage += miles;  // Update mileage (only accessible within Car)
+    }
+
+protected:  // Protected members are accessible from the class and its derived classes
+    double engineCapacity;
+
+    void setEngineCapacity(double capacity) {  // Protected member function
+      engineCapacity = capacity;  // Set engine capacity (accessible in Car and derived classes)
+    }
+};
+
+class SportsCar : public Car {  // Inherits from Car class
+public:
+  int topSpeed;
+
+  void showOff() {  // Public member function in derived class
+    printCarInfo();  // Can access public members of the base class
+    cout << "Top Speed: " << topSpeed << " mph" << endl;
+  }
+
+  void increaseMileage(int miles) {  // Public member function
+    updateMileage(miles);  // Can access private members of the base class through inheritance (for internal modification)
+    cout << "Mileage updated." << endl;
+  }
+};
+
+int main() {
+  SportsCar porsche;
+  porsche.brand = "Porsche";
+  porsche.modelYear = 2024;
+  porsche.topSpeed = 200;
+  porsche.setEngineCapacity(3.0); // Can access protected member through inheritance
+
+  porsche.showOff();  // Calls member functions from both Car and SportsCar
+
+  porsche.increaseMileage(500);  // Calls public function that uses private function internally
+
+  return 0;
+}
