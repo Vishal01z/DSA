@@ -1,0 +1,41 @@
+#include <iostream>
+#include <vector>
+#include <limits> // For INT_MAX
+
+using namespace std;
+
+// Graph represented using adjacency matrix
+vector<vector<int>> graph;
+
+// Function to find the vertex with the minimum key value, from the set of vertices
+// not yet included in MST
+int minKey(vector<int>& key, vector<bool>& mstSet) {
+    int min = INT_MAX, min_index;
+
+    for (int v = 0; v < graph.size(); v++) {
+        if (mstSet[v] == false && key[v] < min) {
+            min = key[v];
+            min_index = v;
+        }
+    }
+
+    return min_index;
+}
+
+// Function to construct and print MST for a graph represented using adjacency matrix
+void primMST(int V) {
+    vector<int> parent(V); // Array to store constructed MST
+    vector<int> key(V);    // Key values used to pick minimum edge in cut
+    vector<bool> mstSet(V, false); // To represent set of vertices included in MST
+
+    // Initialize all keys as INFINITE and mstSet as false
+    for (int i = 0; i < V; i++) {
+        key[i] = INT_MAX;
+        mstSet[i] = false;
+    }
+
+    // Always include first vertex in MST.
+    key[0] = 0;     // Make key 0 so that this vertex is picked as first vertex
+    parent[0] = -1; // First node is always root of MST
+
+    // The MST will have
