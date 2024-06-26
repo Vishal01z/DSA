@@ -1,0 +1,23 @@
+#include <iostream>
+#include <vector>
+
+int linearSearch(const std::vector<int>& arr, int x) {
+    for (size_t i = 0; i < arr.size(); ++i) {
+        if (arr[i] == x) {
+            return i;
+        }
+    }
+    return -1; // Element not found
+}
+
+int main() {
+    std::vector<int> arr = {1, 2, 3, 4, 5};
+    int x = 3;
+    int result = linearSearch(arr, x);
+    if (result != -1) {
+        std::cout << "Element found at index " << result << std::endl;
+    } else {
+        std::cout << "Element not found" << std::endl;
+    }
+    return 0;
+}
