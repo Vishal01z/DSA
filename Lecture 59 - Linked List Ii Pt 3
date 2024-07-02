@@ -1,0 +1,83 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to insert a new node at the end
+void insertAtEnd(Node*& head, int newData) {
+    Node* newNode = new Node();
+    newNode->data = newData;
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Function to remove the N-th node from the end of the list
+Node* removeNthFromEnd(Node* head, int n) {
+    Node* dummy = new Node();
+    dummy->next = head;
+    Node* first = dummy;
+    Node* second = dummy;
+
+    // Move first n+1 steps ahead
+    for (int i = 0; i <= n; ++i) {
+        first = first->next;
+    }
+
+    // Move first to the end, maintaining the gap
+    while (first != nullptr) {
+        first = first->next;
+        second = second->next;
+    }
+
+    // Remove the N-th node
+    Node* nodeToDelete = second->next;
+    second->next = second->next->next;
+    delete nodeToDelete;
+
+    Node* newHead = dummy->next;
+    delete dummy;
+    return newHead;
+}
+
+// Function to display the linked list
+void displayList(Node* node) {
+    while (node != nullptr) {
+        cout << node->data << " -> ";
+        node = node->next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    // Inserting elements
+    insertAtEnd(head, 1);
+    insertAtEnd(head, 2);
+    insertAtEnd(head, 3);
+    insertAtEnd(head, 4);
+    insertAtEnd(head, 5);
+
+    cout << "Linked List: ";
+    displayList(head);
+
+    // Removing the 2nd node from the end
+    head = removeNthFromEnd(head, 2);
+    cout << "After removing 2nd node from the end: ";
+    displayList(head);
+
+    return 0;
+}
