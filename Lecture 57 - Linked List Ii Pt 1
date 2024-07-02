@@ -1,0 +1,117 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to insert a new node at the end
+void insertAtEnd(Node*& head, int newData) {
+    Node* newNode = new Node();
+    newNode->data = newData;
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Function to reverse the linked list in groups of given size
+Node* reverseInGroups(Node* head, int k) {
+    if (!head) return nullptr;
+
+    Node* current = head;
+    Node* next = nullptr;
+    Node* prev = nullptr;
+    int count = 0;
+
+    while (current != nullptr && count < k) {
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+        count++;
+    }
+
+    if (next != nullptr) {
+        head->next = reverseInGroups(next, k);
+    }
+
+    return prev;
+}
+
+// Function to detect and remove cycle in the linked list
+void detectAndRemoveCycle(Node* head) {
+    if (head == nullptr) return;
+
+    Node* slow = head;
+    Node* fast = head;
+
+    // Detecting cycle
+    while (fast != nullptr && fast->next != nullptr) {
+        slow = slow->next;
+        fast = fast->next->next;
+
+        if (slow == fast) {
+            break;
+        }
+    }
+
+    // No cycle detected
+    if (fast == nullptr || fast->next == nullptr) return;
+
+    // Removing cycle
+    slow = head;
+    while (slow->next != fast->next) {
+        slow = slow->next;
+        fast = fast->next;
+    }
+    fast->next = nullptr;
+}
+
+// Function to display the linked list
+void displayList(Node* node) {
+    while (node != nullptr) {
+        cout << node->data << " -> ";
+        node = node->next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int main() {
+    Node* head = nullptr;
+
+    // Inserting elements
+    insertAtEnd(head, 10);
+    insertAtEnd(head, 20);
+    insertAtEnd(head, 30);
+    insertAtEnd(head, 40);
+    insertAtEnd(head, 50);
+    insertAtEnd(head, 60);
+
+    cout << "Linked List: ";
+    displayList(head);
+
+    // Reversing in groups of 3
+    head = reverseInGroups(head, 3);
+    cout << "Reversed in groups of 3: ";
+    displayList(head);
+
+    // Creating a cycle for demonstration
+    head->next->next->next = head->next;
+
+    // Detecting and removing cycle
+    detectAndRemoveCycle(head);
+    cout << "After cycle removal: ";
+    displayList(head);
+
+    return 0;
+}
