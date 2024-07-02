@@ -1,0 +1,87 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Student {
+private:
+    string name;
+    int age;
+    static int count;  // Static member to count instances of Student
+
+public:
+    // Default constructor
+    Student() {
+        name = "Unknown";
+        age = 0;
+        count++;
+        cout << "Default constructor called" << endl;
+    }
+
+    // Parameterized constructor
+    Student(string n, int a) {
+        name = n;
+        age = a;
+        count++;
+        cout << "Parameterized constructor called" << endl;
+    }
+
+    // Destructor
+    ~Student() {
+        count--;
+        cout << "Destructor called" << endl;
+    }
+
+    // Static member function to get count of instances
+    static int getCount() {
+        return count;
+    }
+
+    // Method to display information about the student
+    void displayInfo() {
+        cout << "Name: " << name << endl;
+        cout << "Age: " << age << endl;
+    }
+
+    // Setter for name
+    void setName(string n) {
+        name = n;
+    }
+
+    // Getter for name
+    string getName() {
+        return name;
+    }
+
+    // Setter for age
+    void setAge(int a) {
+        age = a;
+    }
+
+    // Getter for age
+    int getAge() {
+        return age;
+    }
+};
+
+// Initialize static member outside the class definition
+int Student::count = 0;
+
+int main() {
+    // Create objects using different constructors
+    Student s1;  // Default constructor
+    s1.setName("Alice");
+    s1.setAge(20);
+
+    Student s2("Bob", 22);  // Parameterized constructor
+
+    // Display information about both students
+    cout << "Student 1:" << endl;
+    s1.displayInfo();
+    cout << "\nStudent 2:" << endl;
+    s2.displayInfo();
+
+    // Access static member function to get count of students
+    cout << "\nNumber of students: " << Student::getCount() << endl;
+
+    return 0;
+}
