@@ -1,0 +1,109 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Queue class using linked list
+class Queue {
+private:
+    Node *front, *rear;
+
+public:
+    Queue() {
+        front = rear = nullptr;
+    }
+
+    ~Queue() {
+        while (!isEmpty()) {
+            dequeue();
+        }
+    }
+
+    bool isEmpty() {
+        return (front == nullptr);
+    }
+
+    void enqueue(int item) {
+        Node* newNode = new Node();
+        newNode->data = item;
+        newNode->next = nullptr;
+
+        if (rear == nullptr) {
+            front = rear = newNode;
+        } else {
+            rear->next = newNode;
+            rear = newNode;
+        }
+        cout << item << " enqueued to queue" << endl;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return INT_MIN;
+        }
+        Node* temp = front;
+        front = front->next;
+
+        if (front == nullptr) {
+            rear = nullptr;
+        }
+
+        int item = temp->data;
+        delete temp;
+        return item;
+    }
+
+    int frontItem() {
+        if (isEmpty()) {
+            return INT_MIN;
+        }
+        return front->data;
+    }
+
+    int rearItem() {
+        if (isEmpty()) {
+            return INT_MIN;
+        }
+        return rear->data;
+    }
+
+    void displayQueue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        Node* temp = front;
+        while (temp != nullptr) {
+            cout << temp->data << " ";
+            temp = temp->next;
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Queue queue;
+
+    queue.enqueue(10);
+    queue.enqueue(20);
+    queue.enqueue(30);
+    queue.enqueue(40);
+
+    cout << "Queue contents: ";
+    queue.displayQueue();
+
+    cout << queue.dequeue() << " dequeued from queue" << endl;
+
+    cout << "Front item is " << queue.frontItem() << endl;
+    cout << "Rear item is " << queue.rearItem() << endl;
+
+    cout << "Queue contents after dequeue: ";
+    queue.displayQueue();
+
+    return 0;
+}
