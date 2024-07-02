@@ -1,0 +1,98 @@
+#include <iostream>
+using namespace std;
+
+class Queue {
+private:
+    int front, rear, size;
+    unsigned capacity;
+    int* array;
+
+public:
+    Queue(unsigned capacity) {
+        this->capacity = capacity;
+        front = size = 0;
+        rear = capacity - 1;
+        array = new int[capacity];
+    }
+
+    ~Queue() {
+        delete[] array;
+    }
+
+    bool isFull() {
+        return (size == capacity);
+    }
+
+    bool isEmpty() {
+        return (size == 0);
+    }
+
+    void enqueue(int item) {
+        if (isFull()) {
+            cout << "Queue is full" << endl;
+            return;
+        }
+        rear = (rear + 1) % capacity;
+        array[rear] = item;
+        size++;
+        cout << item << " enqueued to queue" << endl;
+    }
+
+    int dequeue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return INT_MIN;
+        }
+        int item = array[front];
+        front = (front + 1) % capacity;
+        size--;
+        return item;
+    }
+
+    int frontItem() {
+        if (isEmpty()) {
+            return INT_MIN;
+        }
+        return array[front];
+    }
+
+    int rearItem() {
+        if (isFull()) {
+            return INT_MIN;
+        }
+        return array[rear];
+    }
+
+    void displayQueue() {
+        if (isEmpty()) {
+            cout << "Queue is empty" << endl;
+            return;
+        }
+        for (int i = front; i != rear; i = (i + 1) % capacity) {
+            cout << array[i] << " ";
+        }
+        cout << array[rear] << endl;
+    }
+};
+
+int main() {
+    Queue queue(5);
+
+    queue.enqueue(10);
+    queue.enqueue(20);
+    queue.enqueue(30);
+    queue.enqueue(40);
+
+    cout << "Queue contents: ";
+    queue.displayQueue();
+
+    cout << queue.dequeue() << " dequeued from queue" << endl;
+
+    cout << "Front item is " << queue.frontItem() << endl;
+    cout << "Rear item is " << queue.rearItem() << endl;
+
+    cout << "Queue contents after dequeue: ";
+    queue.displayQueue();
+
+    return 0;
+}
