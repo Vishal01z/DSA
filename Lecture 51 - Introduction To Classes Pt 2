@@ -1,0 +1,83 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Car {
+private:
+    string brand;
+    string model;
+    int year;
+    double price;
+
+public:
+    // Default constructor
+    Car() {
+        brand = "Unknown";
+        model = "Unknown";
+        year = 0;
+        price = 0.0;
+    }
+
+    // Parameterized constructor
+    Car(string b, string m, int y, double p) {
+        brand = b;
+        model = m;
+        year = y;
+        price = p;
+    }
+
+    // Method to display information about the car
+    void displayInfo() {
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+        cout << "Year: " << year << endl;
+        cout << "Price: $" << price << endl;
+    }
+
+    // Getter for the brand of the car
+    string getBrand() {
+        return brand;
+    }
+
+    // Setter for the price of the car
+    void setPrice(double p) {
+        price = p;
+    }
+
+    // Private member function to calculate depreciation
+    double calculateDepreciation() {
+        // Simulated depreciation calculation
+        int currentYear = 2024;
+        int yearsOld = currentYear - year;
+        return price * (1 - (0.1 * yearsOld)); // 10% depreciation per year
+    }
+
+    // Public function to display depreciation
+    void displayDepreciation() {
+        double depreciatedValue = calculateDepreciation();
+        cout << "Depreciated value after years: $" << depreciatedValue << endl;
+    }
+};
+
+int main() {
+    // Creating objects using different constructors
+    Car myCar1; // Default constructor
+    Car myCar2("Toyota", "Camry", 2022, 30000.0); // Parameterized constructor
+
+    // Display information about both cars
+    cout << "Car 1:" << endl;
+    myCar1.displayInfo();
+    cout << "\nCar 2:" << endl;
+    myCar2.displayInfo();
+
+    // Update the price of Car 1 using setter method
+    myCar1.setPrice(25000.0);
+
+    // Display updated information and depreciation of Car 1
+    cout << "\nUpdated information for Car 1:" << endl;
+    myCar1.displayInfo();
+    cout << "Depreciation details for Car 1:" << endl;
+    myCar1.displayDepreciation();
+
+    return 0;
+}
