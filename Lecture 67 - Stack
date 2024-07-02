@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+
+class Stack {
+private:
+    int top;
+    int capacity;
+    int* array;
+
+public:
+    Stack(int capacity) {
+        this->capacity = capacity;
+        array = new int[capacity];
+        top = -1;
+    }
+
+    ~Stack() {
+        delete[] array;
+    }
+
+    bool isFull() {
+        return top == capacity - 1;
+    }
+
+    bool isEmpty() {
+        return top == -1;
+    }
+
+    void push(int item) {
+        if (isFull()) {
+            cout << "Stack is full" << endl;
+            return;
+        }
+        array[++top] = item;
+        cout << item << " pushed to stack" << endl;
+    }
+
+    int pop() {
+        if (isEmpty()) {
+            cout << "Stack is empty" << endl;
+            return INT_MIN;
+        }
+        return array[top--];
+    }
+
+    int peek() {
+        if (isEmpty()) {
+            return INT_MIN;
+        }
+        return array[top];
+    }
+
+    void displayStack() {
+        if (isEmpty()) {
+            cout << "Stack is empty" << endl;
+            return;
+        }
+        for (int i = 0; i <= top; i++) {
+            cout << array[i] << " ";
+        }
+        cout << endl;
+    }
+};
+
+int main() {
+    Stack stack(5);
+
+    stack.push(10);
+    stack.push(20);
+    stack.push(30);
+    stack.push(40);
+
+    cout << "Stack contents: ";
+    stack.displayStack();
+
+    cout << stack.pop() << " popped from stack" << endl;
+
+    cout << "Top item is " << stack.peek() << endl;
+
+    cout << "Stack contents after pop: ";
+    stack.displayStack();
+
+    return 0;
+}
