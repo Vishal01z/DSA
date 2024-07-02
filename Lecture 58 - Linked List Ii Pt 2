@@ -1,0 +1,76 @@
+#include <iostream>
+using namespace std;
+
+// Node structure
+struct Node {
+    int data;
+    Node* next;
+};
+
+// Function to insert a new node at the end
+void insertAtEnd(Node*& head, int newData) {
+    Node* newNode = new Node();
+    newNode->data = newData;
+    newNode->next = nullptr;
+
+    if (head == nullptr) {
+        head = newNode;
+    } else {
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+// Function to merge two sorted linked lists
+Node* mergeSortedLists(Node* l1, Node* l2) {
+    if (l1 == nullptr) return l2;
+    if (l2 == nullptr) return l1;
+
+    if (l1->data < l2->data) {
+        l1->next = mergeSortedLists(l1->next, l2);
+        return l1;
+    } else {
+        l2->next = mergeSortedLists(l1, l2->next);
+        return l2;
+    }
+}
+
+// Function to display the linked list
+void displayList(Node* node) {
+    while (node != nullptr) {
+        cout << node->data << " -> ";
+        node = node->next;
+    }
+    cout << "nullptr" << endl;
+}
+
+int main() {
+    Node* l1 = nullptr;
+    Node* l2 = nullptr;
+
+    // Inserting elements into first sorted list
+    insertAtEnd(l1, 1);
+    insertAtEnd(l1, 3);
+    insertAtEnd(l1, 5);
+
+    // Inserting elements into second sorted list
+    insertAtEnd(l2, 2);
+    insertAtEnd(l2, 4);
+    insertAtEnd(l2, 6);
+
+    cout << "First Sorted List: ";
+    displayList(l1);
+
+    cout << "Second Sorted List: ";
+    displayList(l2);
+
+    Node* mergedList = mergeSortedLists(l1, l2);
+
+    cout << "Merged Sorted List: ";
+    displayList(mergedList);
+
+    return 0;
+}
