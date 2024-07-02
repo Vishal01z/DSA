@@ -1,0 +1,118 @@
+#include <iostream>
+
+using namespace std;
+
+// Node class for a singly linked list
+class Node {
+public:
+    int data;
+    Node* next;
+
+    Node(int value) {
+        data = value;
+        next = nullptr;
+    }
+};
+
+// Linked list class
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Insert a new node at the beginning of the linked list
+    void insertAtBeginning(int value) {
+        Node* newNode = new Node(value);
+        newNode->next = head;
+        head = newNode;
+    }
+
+    // Insert a new node at the end of the linked list
+    void insertAtEnd(int value) {
+        Node* newNode = new Node(value);
+        if (head == nullptr) {
+            head = newNode;
+            return;
+        }
+        Node* current = head;
+        while (current->next != nullptr) {
+            current = current->next;
+        }
+        current->next = newNode;
+    }
+
+    // Insert a new node after a given value
+    void insertAfterValue(int insertAfter, int value) {
+        Node* current = head;
+        while (current != nullptr) {
+            if (current->data == insertAfter) {
+                Node* newNode = new Node(value);
+                newNode->next = current->next;
+                current->next = newNode;
+                return;
+            }
+            current = current->next;
+        }
+        cout << insertAfter << " not found in the list." << endl;
+    }
+
+    // Delete the first node of the linked list
+    void deleteFirstNode() {
+        if (head == nullptr) {
+            cout << "List is empty. Nothing to delete." << endl;
+            return;
+        }
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    // Print the linked list
+    void printList() {
+        Node* current = head;
+        while (current != nullptr) {
+            cout << current->data << " ";
+            current = current->next;
+        }
+        cout << endl;
+    }
+
+    // Destructor to free memory used by the linked list
+    ~LinkedList() {
+        Node* current = head;
+        while (current != nullptr) {
+            Node* temp = current;
+            current = current->next;
+            delete temp;
+        }
+        head = nullptr;
+    }
+};
+
+// Main function to test the linked list
+int main() {
+    LinkedList list;
+
+    // Insert elements into the linked list
+    list.insertAtBeginning(3);
+    list.insertAtBeginning(5);
+    list.insertAtEnd(7);
+    list.insertAfterValue(5, 6);
+
+    // Print the linked list
+    cout << "Linked List: ";
+    list.printList();
+
+    // Delete the first node
+    list.deleteFirstNode();
+
+    // Print the updated linked list
+    cout << "After deleting the first node: ";
+    list.printList();
+
+    return 0;
+}
