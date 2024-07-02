@@ -1,0 +1,53 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Define the Car class
+class Car {
+private:
+    string brand;  // Brand of the car
+    string model;  // Model of the car
+    int year;      // Year of manufacture
+
+public:
+    // Constructor with parameters
+    Car(string b, string m, int y) {
+        brand = b;
+        model = m;
+        year = y;
+    }
+
+    // Method to display information about the car
+    void displayInfo() {
+        cout << "Brand: " << brand << endl;
+        cout << "Model: " << model << endl;
+        cout << "Year: " << year << endl;
+    }
+
+    // Getter for the brand of the car
+    string getBrand() {
+        return brand;
+    }
+
+    // Setter for the year of the car
+    void setYear(int y) {
+        year = y;
+    }
+};
+
+int main() {
+    // Create an object of the Car class
+    Car myCar("Toyota", "Camry", 2022);
+
+    // Display information about the car
+    myCar.displayInfo();
+
+    // Update the year of the car using a setter method
+    myCar.setYear(2023);
+
+    // Display updated information about the car
+    cout << "\nUpdated information:\n";
+    myCar.displayInfo();
+
+    return 0;
+}
